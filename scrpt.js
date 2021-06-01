@@ -62,5 +62,4 @@ function shapes() {
   window.requestAnimationFrame(shapes);
 }
 
-
 window.requestAnimationFrame(shapes);
