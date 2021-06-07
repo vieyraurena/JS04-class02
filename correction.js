@@ -15,7 +15,7 @@ function canvas(){
   let velocityCircle = getRandomArbitrary(-6, 6);
   let yVelocityCircle = getRandomArbitrary(-6, 6);
   
-  let radiusBall = 50
+  let radiusBall = 50;
   
   function getRandomArbitrary(min, max) {
     return Math.random() * (max - min) + min;
@@ -23,22 +23,14 @@ function canvas(){
 
   function draw() {
     context.clearRect(0, 0, canvas.width, canvas.height);
-    
-    context.fillStyle = "#4cb748";
-    context.fillRect(xPositionSquare, yPositionSquare, 120, 120);
-    
-    context.beginPath();
-    context.fillStyle = "#f01e3d";
-    context.arc(xPositionCircle, yPositionCircle, radiusBall, 0, 2 * Math.PI);
-    context.fill();
-  }
+    const formSquare = new square(xPositionSquare, yPositionSquare, velocity, yVelocity);
+    const formCircle = new  circle(xPositionCircle, yPositionCircle, velocityCircle, yVelocityCircle);
+    formSquare.squareDraw();
+    formCircle.circleDraw();
 
-  function velocityAnimation() {
-    // square
     xPositionSquare += velocity;
     yPositionSquare += yVelocity;
-    
-    // circle
+
     xPositionCircle += velocityCircle;
     yPositionCircle += yVelocityCircle;
   }
@@ -63,11 +55,40 @@ function canvas(){
       yVelocityCircle *= -1;
     }
     
-    velocityAnimation()
-    
     window.requestAnimationFrame(animation);
   }
+
   window.requestAnimationFrame(animation);
+
+  class square{
+    constructor(xPositionSquare, yPositionSquare, velocity, yVelocity){
+      this.xPositionSquare = xPositionSquare;
+      this.yPositionSquare = yPositionSquare;
+      this.velocity = velocity;
+      this.yVelocity = yVelocity;
+    }
+
+    squareDraw() {
+      context.fillStyle = "#4cb748";
+      context.fillRect(this.xPositionSquare, this.yPositionSquare, 120, 120);
+    }
+  }
+
+  class circle{
+    constructor(xPositionCircle, yPositionCircle, velocityCircle, yVelocityCircle){
+      this.xPositionCircle = xPositionCircle;
+      this.yPositionCircle = yPositionCircle;
+      this.velocityCircle = velocityCircle;
+      this.yVelocityCircle = yVelocityCircle;
+    }
+
+    circleDraw() {
+      context.beginPath();
+      context.fillStyle = "#f01e3d";
+      context.arc(this.xPositionCircle, this.yPositionCircle, radiusBall, 0, 2 * Math.PI);
+      context.fill(); 
+    }
+  }
 }
 
 canvas();
